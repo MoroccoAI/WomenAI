@@ -668,8 +668,12 @@
     padding: 1.2rem 1rem;
     text-align: center;
     transition: box-shadow .2s, transform .2s;
+    display: flex;
+    flex-direction: column;
   }
   .spk-card:hover { transform: translateY(-3px); box-shadow: 0 6px 20px var(--shadow); }
+
+  .spk-card-top { flex: 1; }
 
   .spk-avatar {
     width: 150px; height: 150px;
@@ -697,7 +701,34 @@
     font-size: 0.76rem;
     color: var(--muted);
     line-height: 1.4;
+    margin-bottom: 0.8rem;
   }
+ 
+  .spk-bio-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    width: 100%;
+    margin-top: auto;
+    padding: 0.5rem 0.7rem;
+    border: 1.5px solid var(--border);
+    border-radius: 7px;
+    background: var(--surface);
+    color: var(--primary);
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    transition: background .18s, border-color .18s, color .18s;
+  }
+  .spk-bio-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+  }
+  .spk-bio-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
 
   .tba-badge {
     display: inline-block;
@@ -712,6 +743,123 @@
     border-radius: 4px;
     padding: 0.15rem 0.4rem;
     margin-top: 0.3rem;
+  }
+
+    /* ── BIO MODAL ── */
+  .bio-modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 3000;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .25s, visibility .25s;
+  }
+  .bio-modal-overlay.open { visibility: visible; opacity: 1; pointer-events: all; }
+ 
+  .bio-modal {
+    background: white;
+    border-radius: 20px;
+    padding: 0;
+    max-width: 540px;
+    width: 100%;
+    max-height: 88vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+ 
+  .bio-modal-header {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    padding: 1.6rem 1.8rem 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    position: relative;
+  }
+ 
+  .bio-modal-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    border: 3px solid rgba(255,255,255,0.5);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+ 
+  .bio-modal-hinfo { flex: 1; }
+  .bio-modal-hinfo h3 {
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0.2rem;
+  }
+  .bio-modal-hinfo .bio-panel-tag {
+    display: inline-block;
+    font-family: 'Trebuchet MS', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 4px;
+    padding: 0.18rem 0.5rem;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 0.3rem;
+  }
+  .bio-modal-hinfo .bio-role-h {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.4;
+  }
+ 
+  .bio-modal-close {
+    position: absolute;
+    top: 0.9rem; right: 0.9rem;
+    background: rgba(255,255,255,0.18);
+    border: none;
+    border-radius: 50%;
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: background .2s;
+  }
+  .bio-modal-close:hover { background: rgba(255,255,255,0.3); }
+  .bio-modal-close svg { width: 15px; height: 15px; stroke: white; fill: none; }
+ 
+  .bio-modal-body {
+    padding: 1.6rem 1.8rem;
+    overflow-y: auto;
+  }
+  .bio-modal-body p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.72;
+    margin-bottom: 0.9rem;
+  }
+  .bio-modal-body p:last-child { margin-bottom: 0; }
+ 
+  .bio-highlight {
+    background: var(--surface);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    padding: 0.7rem 1rem;
+    margin-bottom: 0.9rem;
+    font-size: 0.88rem;
+    color: var(--text);
+    font-style: italic;
   }
 
   /* ── PARTNERS ── */
@@ -1367,7 +1515,17 @@
       </div>
 
       <div class="tl-item" role="listitem">
-        <div class="tl-time">10:00<br>11:30</div>
+        <div class="tl-time">10:00<br>10:20</div>
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-card panel">
+          <span class="tl-tag">Keynote Speaker</span>
+          <h4>Ms. Anita Bhatia</h4>
+          <p>Former United Nations Assistant Secretary-General and Deputy Executive Director at UN Women; Visiting Fellow at King's College; and Board Member for various entities.</p>
+        </div>
+      </div>
+
+      <div class="tl-item" role="listitem">
+        <div class="tl-time">10:20<br>11:30</div>
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-card panel">
           <span class="tl-tag">Panel 1</span>
@@ -1386,7 +1544,17 @@
       </div>
 
       <div class="tl-item" role="listitem">
-        <div class="tl-time">12:00<br>13:30</div>
+        <div class="tl-time">12:00<br>13:20</div>
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-card panel">
+          <span class="tl-tag">Fireside chat</span>
+          <h4>Her Highness Princess Katarina</h4>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="tl-item" role="listitem">
+        <div class="tl-time">12:20<br>13:30</div>
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-card panel">
           <span class="tl-tag">Panel 2</span>
@@ -1405,7 +1573,17 @@
       </div>
 
       <div class="tl-item" role="listitem">
-        <div class="tl-time">15:00<br>16:30</div>
+        <div class="tl-time">15:00<br>15:20</div>
+        <div class="tl-dot" aria-hidden="true"></div>
+        <div class="tl-card panel">
+          <span class="tl-tag">Demo Sessions</span>
+          <h4>Demo Sessions</h4>
+          <p>Demo Sessions.</p>
+        </div>
+      </div>
+
+      <div class="tl-item" role="listitem">
+        <div class="tl-time">15:20<br>16:30</div>
         <div class="tl-dot" aria-hidden="true"></div>
         <div class="tl-card panel">
           <span class="tl-tag">Panel 3</span>
@@ -1438,66 +1616,204 @@
       <div>
         <div class="spk-panel-label">Panel 1 — Women Grounding AI: Social Norms, Gender Bias &amp; Human Impact</div>
         <div class="spk-grid">
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/AH.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">  
+              <div class="spk-avatar">
+                <img src="imgs/AH.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Prof. Aawatif Hayar</div>
+              <div class="spk-role">Former Minister of Solidarity, Social Integration, and the Family</div>
             </div>
-            <div class="spk-name">Prof. Aawatif Hayar</div>
-            <div class="spk-role">Former Minister of Solidarity, Social Integration, and the Family</div>
+            <button class="spk-bio-btn" data-spk="AH" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/AB.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/CW.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Dr. Cornelia C. Walther</div>
+              <div class="spk-role">Senior Fellow Wharton School, University of Pennsylvania</div>
             </div>
-            <div class="spk-name">Ms. Anita Bhatia</div>
-            <div class="spk-role">Former United Nations Assistant Secretary-General and Deputy Executive Director at UN Women; 
-              Visiting Fellow at King's College; and Board Member for various entities</div>
+            <button class="spk-bio-btn" data-spk="CW" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/MS.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">
+              <div class="spk-avatar">AF</div>
+              <div class="spk-name">Ms. Annette Funk</div>
+              <div class="spk-role">Head of Project WoMENA, GIZ</div>
             </div>
-            <div class="spk-name">Ms. Marielle Sander</div>
-            <div class="spk-role">UNFPA Representative in Morocco</div>
+            <button class="spk-bio-btn" data-spk="AF" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">+</div>
-            <div class="spk-name">More Speakers</div>
-            <div class="spk-role"><span class="tba-badge">To Be Announced</span></div>
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/MS.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Ms. Marielle Sander</div>
+              <div class="spk-role">Country Representative for the United Nations Population Fund (UNFPA) in Morocco</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="MS" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">MN</div>
+              <div class="spk-name">Ms. Myriem Noussairi</div>
+              <div class="spk-role">UN Women Representative in Morocco</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="MN" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/SC.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Mr. Sasha Cadariu</div>
+              <div class="spk-role">Director of AI Strategy and Ethics, The Integrity Group</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="SC" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
         </div>
       </div>
 
       <div>
         <div class="spk-panel-label">Panel 2 — Women Governing AI: Standards, Governance &amp; Trust</div>
         <div class="spk-grid">
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/UT.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">
+              <div class="spk-avatar">BZ</div>
+              <div class="spk-name">Her Excellency Botagoz Zhakselekova</div>
+              <div class="spk-role">Vice Minister of Justice of Kazakhstan</div>
             </div>
-            <div class="spk-name">Dr. Ulrike Till</div>
-            <div class="spk-role">Director IP and Frontier Technologies Division, WIPO</div>
+            <button class="spk-bio-btn" data-spk="BZ" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/NI.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/MG.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Dr. Maha Gmira</div>
+              <div class="spk-role">CTO at Solution AI</div>
             </div>
-            <div class="spk-name">Dr. Nibal Idlebi</div>
-            <div class="spk-role">Senior Advisor in Digital Transformation and Innovation Policies. AI and Emerging Technologies</div>
+            <button class="spk-bio-btn" data-spk="MG" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/CW.png" alt="" onerror="this.style.display='none'">
+            <div class="spk-card-top">
+              <div class="spk-avatar">UT</div>
+              <div class="spk-name">Dr. Ulrike Till</div>
+              <div class="spk-role">Director IP and Frontier Technologies Division, WIPO</div>
             </div>
-            <div class="spk-name">Dr. Cornelia C. Walther</div>
-            <div class="spk-role">Senior Fellow Wharton School. University of Pennsylvania</div>
+            <button class="spk-bio-btn" data-spk="UT" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
           <div class="spk-card">
-            <div class="spk-avatar">
-              <img src="imgs/VH.png" alt="" onerror="this.style.display='none'"></div>
-            <div class="spk-name">Dr. Vida Hamd</div>
-            <div class="spk-role">Head of Public Policy MENA, META</div>
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/VH.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Dr. Vida Hamd</div>
+              <div class="spk-role">Head of Public Policy MENA, META</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="VH" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
           </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/BS.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Ms. Bridget Shoo</div>
+              <div class="spk-role">Counsellor (Frontier Technologies), WTO</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="BS" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+          
           <div class="spk-card">
             <div class="spk-avatar">+</div>
             <div class="spk-name">More Speakers</div>
@@ -1509,6 +1825,75 @@
       <div>
         <div class="spk-panel-label">Panel 3 — Women Leading AI: Decision-Making Power &amp; Organizational Transformation</div>
         <div class="spk-grid">
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/NI.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Dr. Nibal Idlebi</div>
+              <div class="spk-role">Senior Advisor for Digital Transformation & Innovation Policies, ARISPA; Former Director at UN-ESCWA</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="NI" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">NL</div>
+              <div class="spk-name">Ms. Nezha Larhrissi</div>
+              <div class="spk-role">President and co-founder of eSTEM Morocco</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="NL" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/PS.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Ms. Patricia Souza da Cunha Oliveira</div>
+              <div class="spk-role">President, Women4Cyber Luxembourg</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="PS" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
+          <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">SG</div>
+              <div class="spk-name">Ms. Sofia Ghacham</div>
+              <div class="spk-role">Head of Women in AI Morocco</div>
+            </div>
+            <button class="spk-bio-btn" data-spk="SG" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+          
           <div class="spk-card">
             <div class="spk-avatar">+</div>
             <div class="spk-name">More Speakers</div>
@@ -1520,6 +1905,26 @@
     </div>
   </div>
 </section>
+
+<!-- BIO MODAL -->
+<div class="bio-modal-overlay" id="bio-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bio-modal-name">
+  <div class="bio-modal" id="bio-modal">
+    <div class="bio-modal-header">
+      <div class="bio-modal-avatar" id="bio-modal-initials">
+        <img src="imgs/AH.png" alt="" onerror="this.style.display='none'">
+      </div>
+      <div class="bio-modal-hinfo">
+        <div class="bio-panel-tag" id="bio-modal-panel">Panel 1</div>
+        <h3 id="bio-modal-name">Speaker Name</h3>
+        <div class="bio-role-h" id="bio-modal-role">Role</div>
+      </div>
+      <button class="bio-modal-close" id="bio-modal-close" aria-label="Close bio">
+        <svg viewBox="0 0 24 24" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="bio-modal-body" id="bio-modal-body" style="text-align: justify;"></div>
+  </div>
+</div>
 
 <!-- PARTNERS -->
 <section id="partners" aria-labelledby="par-title">
@@ -1619,74 +2024,25 @@
     <button class="modal-close" id="modal-close" aria-label="Close registration form">
       <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/></svg>
     </button>
-
-    <!-- <div id="modal-form-wrap">
-      <h2 id="modal-title">Register Your Interest</h2>
-      <p class="modal-sub">Complete the form below and our team will follow up with event details and registration information.</p>
-
-      <form id="register-form" novalidate>
-        <div class="form-group">
-          <label for="f-name">Full Name <span class="req">*</span></label>
-          <input type="text" id="f-name" placeholder="Your full name" autocomplete="name" required>
-          <div class="field-err" id="err-name">Please enter your full name.</div>
-        </div>
-        <div class="form-group">
-          <label for="f-email">Email Address <span class="req">*</span></label>
-          <input type="email" id="f-email" placeholder="you@organization.com" autocomplete="email" required>
-          <div class="field-err" id="err-email">Please enter a valid email address.</div>
-        </div>
-        <div class="form-group">
-          <label for="f-org">Organization <span class="req">*</span></label>
-          <input type="text" id="f-org" placeholder="Your organization or institution" required>
-          <div class="field-err" id="err-org">Please enter your organization.</div>
-        </div>
-        <div class="form-group">
-          <label for="f-role">Your Role <span class="req">*</span></label>
-          <input type="text" id="f-role" placeholder="e.g. Researcher, Policymaker, Entrepreneur" required>
-          <div class="field-err" id="err-role">Please enter your role.</div>
-        </div>
-        <div class="form-group">
-          <label for="f-interest">Area of Interest <span class="req">*</span></label>
-          <select id="f-interest" required>
-            <option value="">— Select an area —</option>
-            <option value="social">Social Norms, Gender Bias &amp; Human Impact (Panel 1)</option>
-            <option value="governance">AI Governance, Standards &amp; Trust (Panel 2)</option>
-            <option value="leadership">Women's Leadership &amp; Organizational Transformation (Panel 3)</option>
-            <option value="all">All Panels</option>
-            <option value="partnership">Partnership / Sponsorship Opportunities</option>
-            <option value="media">Media / Press</option>
-          </select>
-          <div class="field-err" id="err-interest">Please select an area of interest.</div>
-        </div>
-        <div class="checkbox-row">
-          <input type="checkbox" id="f-consent" required>
-          <label for="f-consent">I consent to the organizing committee contacting me with event information and updates related to Morocco's AI Forum 2026. <span class="req">*</span></label>
-        </div>
-        <div class="field-err" id="err-consent" style="margin-top:-0.8rem;margin-bottom:1rem;">Please provide your consent to proceed.</div>
-        <button type="submit" class="btn btn-red" style="width:100%;justify-content:center;font-size:1rem;padding:.9rem">Submit Registration</button>
-      </form>
-    </div>-->
-
     <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSccy7JWZV2IuGkkQhCHzj1xuTacOJkXg2ZyhXCA3efz8aFmZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 (function () {
   'use strict';
-
+ 
   /* ── NAV SCROLL EFFECT ── */
   const navbar = document.getElementById('navbar');
   const backTop = document.getElementById('back-top');
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('nav ul li a');
-
+ 
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
     navbar.classList.toggle('scrolled', y > 40);
     backTop.classList.toggle('visible', y > 400);
-
+ 
     // Active nav link
     let current = '';
     sections.forEach(sec => {
@@ -1696,7 +2052,7 @@
       a.classList.toggle('active', a.getAttribute('href') === '#' + current);
     });
   }, { passive: true });
-
+ 
   /* ── SMOOTH SCROLL ── */
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
@@ -1710,17 +2066,17 @@
       }
     });
   });
-
+ 
   /* ── HAMBURGER ── */
   document.getElementById('hamburger').addEventListener('click', function () {
     const nav = document.getElementById('main-nav');
     const open = nav.classList.toggle('open');
     this.setAttribute('aria-expanded', open);
   });
-
+ 
   /* ── BACK TO TOP ── */
   backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
+ 
   /* ── MODAL ── */
   const overlay = document.getElementById('modal-overlay');
   const modal = document.getElementById('modal');
@@ -1728,9 +2084,9 @@
   const formWrap = document.getElementById('modal-form-wrap');
   const successWrap = document.getElementById('modal-success');
   let lastFocused;
-
+ 
   const focusableSelector = 'button, input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])';
-
+ 
   function openModal() {
     lastFocused = document.activeElement;
     overlay.classList.add('open');
@@ -1740,18 +2096,18 @@
       if (firstEl) firstEl.focus();
     }, 50);
   }
-
+ 
   function closeModal() {
     overlay.classList.remove('open');
     document.body.style.overflow = '';
     if (lastFocused) lastFocused.focus();
   }
-
+ 
   document.getElementById('hero-register-btn').addEventListener('click', openModal);
   document.getElementById('contact-register-btn').addEventListener('click', openModal);
   closeBtn.addEventListener('click', closeModal);
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
-
+ 
   // Focus trap
   modal.addEventListener('keydown', e => {
     if (e.key !== 'Tab') return;
@@ -1761,83 +2117,199 @@
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
-
-  /* ── FORM VALIDATION ── */
-  function showErr(fieldId, errId, show) {
-    const f = document.getElementById(fieldId);
-    const e = document.getElementById(errId);
-    f.classList.toggle('error', show);
-    e.classList.toggle('show', show);
-  }
-
-  function validEmail(v) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
-  }
-
-  document.getElementById('register-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const name = document.getElementById('f-name').value.trim();
-    const email = document.getElementById('f-email').value.trim();
-    const org = document.getElementById('f-org').value.trim();
-    const role = document.getElementById('f-role').value.trim();
-    const interest = document.getElementById('f-interest').value;
-    const consent = document.getElementById('f-consent').checked;
-
-    let valid = true;
-
-    showErr('f-name', 'err-name', !name);
-    if (!name) valid = false;
-
-    showErr('f-email', 'err-email', !email || !validEmail(email));
-    if (!email || !validEmail(email)) valid = false;
-
-    showErr('f-org', 'err-org', !org);
-    if (!org) valid = false;
-
-    showErr('f-role', 'err-role', !role);
-    if (!role) valid = false;
-
-    showErr('f-interest', 'err-interest', !interest);
-    if (!interest) valid = false;
-
-    const consentErr = document.getElementById('err-consent');
-    consentErr.classList.toggle('show', !consent);
-    if (!consent) valid = false;
-
-    if (valid) {
-      formWrap.style.display = 'none';
-      successWrap.classList.add('show');
-      successWrap.focus();
-    } else {
-      const firstErr = modal.querySelector('.error, input.error');
-      if (firstErr) firstErr.focus();
+  
+  /* ── BIO MODAL ── */
+  const BIOS = {
+    AH: {
+      name: 'Prof. Aawatif Hayar',
+      initials: 'AH',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Former Minister of Solidarity, Social Integration and Family',
+      bio: [
+        'Aawatif Hayar is the Minister of Solidarity, Social Integration, and Family of Morocco. She was President of Hassan II University Casablanca 2019-2021. Since 2016, she has served as the Scientific Advisor of Smart City Expo Casablanca and General Co-Chair of IEEE international Smart Cities Conference. In 2011, she served as a professor at the UH2C. She is also a member of the Casablanca “Avant-garde” City think tank. She was also selected by the African Innovation Foundation as one of the top ten innovative African women in 2015. She was the first Moroccan to receive the degree of “Agrégation” in Electrical Engineering with honors from ENS Cachan in 1992. She received a "Diplôme d\'Etudes Approfondies" in signal processing image and communications and a degree in Engineering in Telecommunications Systems and Networks from ENSEEIHT de Toulouse in 1997. She earned her PhD with honors from Institut National Polytechnique in Toulouse in 2001.'
+        ]
+    },
+    AB: {
+      name: 'Ms. Anita Bhatia',
+      initials: 'AB',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Former United Nations Assistant Secretary-General and Deputy Executive Director at UN Women; Visiting Fellow at King\'s College; and Board Member for various entities',
+      bio: [
+        'Ms. Bhatia is the founder of Impact Commons, a strategic advisory, advocacy convening and capacity building organization. Until April 2023, she served as the United Nations\' Assistant Secretary-General and Deputy Executive Director for UN Women, the flagship entity in the United Nations system charged with advancing gender equality and women\'s empowerment globally. In that role, she led external stakeholder relations with both public and private sector partners, fundraising, communications, strategy planning, as well as finance and HR. In this role, she led the organization\'s fundraising efforts successfully securing a significant increase and diversification of the organization\'s funding base. She also led the development of new strategic alliances with international financial institutions, impact investors, corporates, and others. She has been a leading advocate for a stronger focus on gender-lens investing and was instrumental in the publication of globally recognized standards for gender bonds through the publication “Bonds to Bridge the Gender Gap: A Practitioner\'s Guide to Using Sustainable Debt for Gender Equality” in partnership with IFC and the International Capital Markets Association. Ms. Bhatia has served as a member of the Board of Governors of the United Nations System Staff College and currently serves on the Board of the United Nations Sanitation and Hygiene Fund (SHF) and as a Commissioner in the Lancet Commission on Gender-based Violence and Maltreatment of Young People. Prior to UN Women, Ms. Bhatia had a distinguished career spanning 30+ years in the World Bank Group, including the International Finance Corporation (IFC), the World Bank and the Multilateral Investment Guarantee Agency (MIGA) serving in different leadership and management positions. She served as the Director for Development Partner Relations at the World Bank, Director of Partnerships and Advisory Services Operations at the IFC and Head of IFC\'s Latin America Advisory Operations among other roles. In addition to Latin America, she has worked in Africa, Europe, Central Asia and South and East Asia. Ms. Bhatia is a globally recognized thought leader on advancing gender equality and women\'s empowerment. She is a powerful and convincing communicator who advocates effectively for issues to help shape policy agendas, including in fora such as the Commission on the Status of Women and G20 among others. Ms. Bhatia is a sought-after speaker and commentator with appearances on CNN, BBC, France 24, Deutsche Welle, Jeune Afrique, Digital Future Society, Channel News Asia, Vogue, Qazaq TV, The Telegraph, The News Forum, Delano, EFE, RTVE, MO4 Network, ARD German TV & Radio Network. Her op-eds and thought leadership pieces have appeared in The Washington Post, the Official Monetary and Financial Institutions Forum (OMFIF), Project Syndicate, Devex, The Independent, The Nigeria Daily Trust, Nairobi Report, Bangkok Post, South China Morning Post, The Daily Star, and others. Ms. Bhatia holds a BA in History from Calcutta University, an MA in Political Science from Yale University and a Juris Doctor in Law from Georgetown University.'
+        ]
+    },
+    MS: {
+      name: 'Ms. Marielle Sander',
+      initials: 'MS',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Country Representative for the United Nations Population Fund (UNFPA) in Morocco',
+      bio: [
+        'Marielle Sander, a Swedish national, is the Country Representative for the United Nations Population Fund (UNFPA) in Morocco. Marielle is a development practitioner with more than two decades of experience in international development. An advocate for human rights, especially the rights of women and girls, her career includes fighting human trafficking and labor exploitation in Eastern Europe as Chief of Mission for the International Organization for Migration and in South-East Asia with The Asia Foundation. As Deputy Representative for UNICEF, she led the work on children\'s rights and rights of children living with disabilities in Russia, and since joining UNFPA in 2015, she works with Governments to strengthen and leverage demographic data to ensure reproductive health and rights of women, girls, and adolescents. In Morocco, UNFPA works on youth empowerment, women and girls\' wellbeing, reproductive health, and population dynamics. Currently, UNFPA is also partnering on AI-based research in Morocco for women\'s health. A creative influence, Marielle\'s work on strategic and innovative communications focus has been recognized by UNFPA (People Culture Award 2022) and through international award-winning documentaries linking cultural expression, socioeconomic development, and indigenous identity. Marielle has served with UNPFA in Haiti, Eritrea, South Africa, Papua New Guinea, and, since 2023, in Morocco.'
+        ]
+    },
+    CW: {
+      name: 'Dr. Cornelia C. Walther',
+      initials: 'CW',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Senior Fellow Wharton School. University of Pennsylvania',
+      bio: [
+        'Dr. Cornelia C. Walther is a humanitarian leader with 20+ years at the UN, driving social change. Now, as a senior fellow at the Wharton School and Sunway University, she pioneers research on ProSocial AI and hybrid Intelligence via the global POZE alliance to build "Agency amid AI for All." She is the author of six books and a contributor on Forbes and Psychology Today.  Her new book, Artificial Intelligence for Inspired Action (AI4IA), comes out in December.'
+        ]
+    },
+    SC: {
+      name: 'Mr. Sasha Cadariu',
+      initials: 'SC',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Director of AI Strategy and Ethics, The Integrity Group',
+      bio: [
+        ''
+        ]
+    },
+    AF: {
+      name: 'Ms. Annette Funk',
+      initials: 'AF',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Head of Project WoMENA, GIZ',
+      bio: [
+        ''
+        ]
+    },
+    MN: {
+      name: 'Ms. Myriem Noussairi',
+      initials: 'MN',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'UN Women Representative in Morocco',
+      bio: [
+        ''
+        ]
+    },
+    MG: {
+      name: 'Dr. Maha Gmira',
+      initials: 'MG',
+      panel: 'Panel 2 — Women Governing AI',
+      role: 'CTO at Solution AI',
+      bio: [
+        'Dr. Maha GMIRA is CTO at Solution AI. Previously, she was Expert specializing in Artificial Intelligence Strategies and Gender at the United Nations for Development. She also served as the head of the Artificial Intelligence engineering school at EUROMED University of Fez. Her educational background includes a bachelor\'s degree in engineering, a Master\'s in Mathematics, and a PhD in Artificial Intelligence from Polytechnique Montréal, Canada. In November 2021, the African Scientific Research and Innovation Council (ASRIC), an entity of the African Union, honored Prof. Maha Gmira with a Flagship Project. In 2022, she obtained a Horizon Europe project, which deals with artificial intelligence in Agriculture, with a budget of more than 1.4 million Euros.'
+        ]
+    },
+    BZ: {
+      name: 'Her Excellency Botagoz Zhakselekova',
+      initials: 'BZ',
+      panel: 'Panel 2 — Women Governing AI',
+      role: 'Vice Minister of Justice of Kazakhstan',
+      bio: [
+        ''
+        ]
+    },
+    UT: {
+      name: 'Dr. Ulrike Till',
+      initials: 'UT',
+      panel: 'Panel 2 — Women Governing AI',
+      role: 'Director IP and Frontier Technologies Division, WIPO',
+      bio: [
+        ''
+        ]
+    },
+    VH: {
+      name: 'Dr. Vida Hamd',
+      initials: 'VH',
+      panel: 'Panel 2 — Women Governing AI',
+      role: 'Head of Public Policy MENA, META',
+      bio: [
+        'Dr. Vida Hamad is a jurist and published author. Her books influence global debates on counterterrorism and international justice. With over a decade at the United Nations, Dr. Hamad is recognized for managing crisis and sensitive governmental portfolios. She was a diplomatic advisor who built strategic alliances to drive sustainable development and humanitarian aid in high-impact, complex settings. Currently, the Head of Public Policy for the Maghreb Region and Sudan at Meta, Dr. Vida leads on tech policy and regulatory frameworks, platform security, and AI governance in the region.'
+        ]
+    },
+    BS: {
+      name: 'Ms. Bridget Shoo',
+      initials: 'BS',
+      panel: 'Panel 2 — Women Governing AI',
+      role: 'Counsellor (Frontier Technologies), WTO',
+      bio: [
+        'Bridget Shoo is a Counsellor in the Economics Research and Statistics Division at the World Trade Organization (WTO). She is part of the newly established Digital Trade and Frontier Technologies Unit, where she works on research and initiatives related to frontier technologies in the WTO, with a special emphasis on artificial intelligence (AI). She was previously at the Singapore Ministry of Trade and Industry where she led initiatives to grow Singapore\'s bilateral economic relations with Sub-Saharan Africa, Latin America, as well as developed policies to strengthen Singapore\'s supply chain resilience and increase industry adoption of AI.'
+        ]
+    },
+    PS: {
+      name: 'Ms. Patricia Souza da Cunha Oliveira',
+      initials: 'PS',
+      panel: 'Panel 3 — Women Leading AI',
+      role: 'President, Women4Cyber Luxembourg',
+      bio: [
+        'Patricia Souza da Cunha Oliveira is President of the Women4Cyber Luxembourg Chapter, a non-profit European private foundation with the objective to promote, encourage and support the participation of women in the field of Cybersecurity. With over 20 years of international experience across leadership development, technology ecosystems, and inclusion strategies, she works at the intersection of cybersecurity, education, and social impact. Patricia designs and leads initiatives that expand access to digital skills, strengthen representation in emerging technologies, and connect institutions, communities, and industry to build sustainable pathways into tech. Her work focuses on creating spaces where talent can emerge and belonging can grow—transforming inspiration into real opportunities for women and young people. At Women4Cyber Luxembourg, she champions collaboration across Luxembourg and beyond to promote inclusive leadership in cybersecurity and AI, contributing to global conversations on responsible, human-centered technology and the role of diverse leadership in shaping the future of digital societies.'
+        ]
+    },
+    NI: {
+      name: 'Dr. Nibal Idlebi',
+      initials: 'NI',
+      panel: 'Panel 3 — Women Leading AI',
+      role: 'Senior Advisor for Digital Transformation & Innovation Policies, ARISPA; Former Director at UN-ESCWA',
+      bio: [
+        'Dr. Nibal Idlebi is a senior expert in Digital Transformation, AI and Emerging Technologies, Innovation Policy, Information and Smart Society, and Digital and Open Government. She is currently a Senior Advisor for the UN and selected regional organizations such as ARISPA and AICTO. She is also a member of the advisory board of 01Gov and StartUp Syria. With over 20 years at UN-ESCWA, she held senior positions including Director of Statistics, Information Society, and Technology, leading regional initiatives on AI and Digital Governance, AI and Emerging Technologies policies, Innovation Policy, legal and regulatory framework for information society, Digital Arabic Content and digital & open government. She previously served as Deputy Minister at Syria\'s Ministry of Communications and Technology (2002-2004), and as a professor and project manager at the Higher Institute of Applied Science & Technology in Damascus (1994-2002). Dr. Nibal Idlebi holds a Ph.D. in Computer Science from Nancy 1 University in France, specializing in Parallel Processing and Distributed Systems; a DEA from ENSIMAG (École Nationale Supérieure d\'Informatique et de Mathématiques Appliquées); and an engineering degree from École Supérieure d\'Électricité (Supélec).'
+        ]
+    },
+    NL: {
+      name: 'Ms. Nezha Larhrissi',
+      initials: 'NL',
+      panel: 'Panel 3 — Women Leading AI',
+      role: 'President and co-founder of eSTEM Morocco',
+      bio: [
+        ''
+        ]
+    },
+    SG: {
+      name: 'Ms. Sofia Ghacham',
+      initials: 'SG',
+      panel: 'Panel 3 — Women Leading AI',
+      role: 'Head of Women in AI Morocco',
+      bio: [
+        ''
+        ]
     }
+  };
+ 
+  const bioOverlay = document.getElementById('bio-modal-overlay');
+  const bioModal = document.getElementById('bio-modal');
+  const bioClose = document.getElementById('bio-modal-close');
+  let bioLastFocus;
+ 
+  function openBio(key) {
+    const d = BIOS[key];
+    if (!d) return;
+    bioLastFocus = document.activeElement;
+    document.getElementById('bio-modal-initials').textContent = d.initials;
+    document.getElementById('bio-modal-name').textContent = d.name;
+    document.getElementById('bio-modal-panel').textContent = d.panel;
+    document.getElementById('bio-modal-role').textContent = d.role;
+    document.getElementById('bio-modal-body').innerHTML = d.bio.map(p => '<p>' + p + '</p>').join('');
+    bioOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    bioClose.focus();
+  }
+ 
+  function closeBio() {
+    bioOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+    if (bioLastFocus) bioLastFocus.focus();
+  }
+ 
+  document.querySelectorAll('.spk-bio-btn').forEach(btn => {
+    btn.addEventListener('click', () => openBio(btn.dataset.spk));
   });
-
-  // Clear errors on input
-  ['f-name','f-email','f-org','f-role','f-interest'].forEach(id => {
-    const el = document.getElementById(id);
-    el.addEventListener('input', () => el.classList.remove('error'));
+ 
+  bioClose.addEventListener('click', closeBio);
+  bioOverlay.addEventListener('click', e => { if (e.target === bioOverlay) closeBio(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && bioOverlay.classList.contains('open')) closeBio();
   });
-
-  /* ── FAQ ACCORDION ── */
-  document.querySelectorAll('.faq-q').forEach(btn => {
-    btn.addEventListener('click', function () {
-      const expanded = this.getAttribute('aria-expanded') === 'true';
-      // Close all
-      document.querySelectorAll('.faq-q').forEach(b => {
-        b.setAttribute('aria-expanded', 'false');
-        document.getElementById(b.getAttribute('aria-controls')).classList.remove('open');
-      });
-      // Toggle clicked
-      if (!expanded) {
-        this.setAttribute('aria-expanded', 'true');
-        document.getElementById(this.getAttribute('aria-controls')).classList.add('open');
-      }
-    });
-  });
-
+ 
+  bioModal.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const focusable = Array.from(bioModal.querySelectorAll('button, a, input, [tabindex]:not([tabindex="-1"])')).filter(el => !el.disabled);
+    const first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }); 
 })();
 </script>
+
 </body>
 </html>
