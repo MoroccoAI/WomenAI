@@ -958,14 +958,16 @@
   .modal {
     background: white;
     border-radius: 20px;
-    padding: 2.2rem;
+    padding: 1%;
     max-width: 520px;
     width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
+    height: 100%;
+    max-height: 720px;
+    overflow: hidden;
     position: relative;
     transform: scale(0.95) translateY(10px);
     transition: transform .25s;
+    
   }
   .modal-overlay.open .modal { transform: scale(1) translateY(0); }
 
@@ -1618,7 +1620,7 @@
       <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="2"/><line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="2"/></svg>
     </button>
 
-    <div id="modal-form-wrap">
+    <!-- <div id="modal-form-wrap">
       <h2 id="modal-title">Register Your Interest</h2>
       <p class="modal-sub">Complete the form below and our team will follow up with event details and registration information.</p>
 
@@ -1663,16 +1665,10 @@
         <div class="field-err" id="err-consent" style="margin-top:-0.8rem;margin-bottom:1rem;">Please provide your consent to proceed.</div>
         <button type="submit" class="btn btn-red" style="width:100%;justify-content:center;font-size:1rem;padding:.9rem">Submit Registration</button>
       </form>
-    </div>
+    </div>-->
 
-    <div class="modal-success" id="modal-success" aria-live="polite">
-      <div class="success-icon">
-        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" stroke="#2E7D32" stroke-width="3" fill="none"/></svg>
-      </div>
-      <h3>Registration Received!</h3>
-      <p>Thank you for your interest in Morocco's AI Forum 2026. Our team will be in touch shortly with event details and next steps.</p>
-      <p style="margin-top:.8rem">For immediate inquiries: <a href="mailto:team@morocco.ai" style="color:var(--primary)">team@morocco.ai</a></p>
-    </div>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSccy7JWZV2IuGkkQhCHzj1xuTacOJkXg2ZyhXCA3efz8aFmZQ/viewform?embedded=true" width="100%" height="100%" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
   </div>
 </div>
 
