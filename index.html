@@ -658,7 +658,7 @@
   .spk-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
+    gap: 5rem;
   }
 
   .spk-card {
@@ -866,11 +866,10 @@
   #partners { background: white; }
 
   .partners-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.4rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 500px));
+    gap: 5rem;
     justify-content: center;
-    align-items: center;
   }
 
   .partner-card {
@@ -884,8 +883,10 @@
     gap: 0.05rem;
     text-align: center;
     transition: box-shadow .2s;
-    max-width: 500px;
+    height: 100%;
+    width: 100%;
   }
+
   .partner-card:hover { box-shadow: 0 4px 16px var(--shadow); }
 
   .partner-logo-placeholder {
@@ -1494,7 +1495,8 @@
   <div class="container">
     <h2 class="section-title" id="prog-title">Program Agenda</h2>
     <p class="section-sub">A full day of high-impact panels, networking, and strategic dialogue — Tuesday, 14 April 2026.</p>
-    <div class="timeline" role="list">
+    <h1 style="text-align: center">To Be Announced</h1>
+    <!--div class="timeline" role="list">
 
       <div class="tl-item" role="listitem">
         <div class="tl-time">09:00<br>09:30</div>
@@ -1601,7 +1603,7 @@
         </div>
       </div>
 
-    </div>
+    </div--->
   </div>
 </section>
 
@@ -1618,12 +1620,30 @@
         <div class="spk-grid">
 
           <div class="spk-card">
+            <div class="spk-card-top">
+              <div class="spk-avatar">
+                <img src="imgs/JH.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Prof. Jesko Hentschel</div>
+              <div class="spk-role">Affiliate Professor at UM6P; Former World Bank's Country Director for the Maghreb and Malta region </div>
+            </div>
+            <button class="spk-bio-btn" data-spk="JH" aria-label="">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              View Bio
+            </button>
+          </div>
+
+          <div class="spk-card">
             <div class="spk-card-top">  
               <div class="spk-avatar">
                 <img src="imgs/AH.png" alt="" onerror="this.style.display='none'">
               </div>
               <div class="spk-name">Prof. Aawatif Hayar</div>
-              <div class="spk-role">Former Minister of Solidarity, Social Integration, and the Family</div>
+              <div class="spk-role">Expert in Frugal Social Smart Cities and Communities; Former Minister of Solidarity, Social Integration, and Family</div>
             </div>
             <button class="spk-bio-btn" data-spk="AH" aria-label="">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1638,28 +1658,12 @@
           <div class="spk-card">
             <div class="spk-card-top">
               <div class="spk-avatar">
-                <img src="imgs/CW.png" alt="" onerror="this.style.display='none'">
+                <img src="imgs/MN.png" alt="" onerror="this.style.display='none'">
               </div>
-              <div class="spk-name">Dr. Cornelia C. Walther</div>
-              <div class="spk-role">Senior Fellow Wharton School, University of Pennsylvania</div>
+              <div class="spk-name">Ms. Myriem Ouchen Noussairi</div>
+              <div class="spk-role">Head of Office - UN Women Morocco Country Office</div>
             </div>
-            <button class="spk-bio-btn" data-spk="CW" aria-label="">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"/>
-                <line x1="12" y1="8" x2="12" y2="12"/>
-                <line x1="12" y1="16" x2="12.01" y2="16"/>
-              </svg>
-              View Bio
-            </button>
-          </div>
-
-          <div class="spk-card">
-            <div class="spk-card-top">
-              <div class="spk-avatar">AF</div>
-              <div class="spk-name">Ms. Annette Funk</div>
-              <div class="spk-role">Head of Project WoMENA, GIZ</div>
-            </div>
-            <button class="spk-bio-btn" data-spk="AF" aria-label="">
+            <button class="spk-bio-btn" data-spk="MN" aria-label="">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="8" x2="12" y2="12"/>
@@ -1675,7 +1679,7 @@
                 <img src="imgs/MS.png" alt="" onerror="this.style.display='none'">
               </div>
               <div class="spk-name">Ms. Marielle Sander</div>
-              <div class="spk-role">Country Representative for the United Nations Population Fund (UNFPA) in Morocco</div>
+              <div class="spk-role">Representative, United Nations Population Fund - UNFPA</div>
             </div>
             <button class="spk-bio-btn" data-spk="MS" aria-label="">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1689,11 +1693,13 @@
 
           <div class="spk-card">
             <div class="spk-card-top">
-              <div class="spk-avatar">MN</div>
-              <div class="spk-name">Ms. Myriem Noussairi</div>
-              <div class="spk-role">UN Women Representative in Morocco</div>
+              <div class="spk-avatar">
+                <img src="imgs/AF.png" alt="" onerror="this.style.display='none'">
+              </div>
+              <div class="spk-name">Prof. Abdessamad Fatmi</div>
+              <div class="spk-role">Founder and CEO, Erudite Counseling</div>
             </div>
-            <button class="spk-bio-btn" data-spk="MN" aria-label="">
+            <button class="spk-bio-btn" data-spk="AF" aria-label="">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="8" x2="12" y2="12"/>
@@ -1706,12 +1712,12 @@
           <div class="spk-card">
             <div class="spk-card-top">
               <div class="spk-avatar">
-                <img src="imgs/SC.png" alt="" onerror="this.style.display='none'">
+                <img src="imgs/CW.png" alt="" onerror="this.style.display='none'">
               </div>
-              <div class="spk-name">Mr. Sasha Cadariu</div>
-              <div class="spk-role">Director of AI Strategy and Ethics, The Integrity Group</div>
+              <div class="spk-name">Dr. Cornelia C. Walther</div>
+              <div class="spk-role">Senior Fellow, University of Pennsylvania</div>
             </div>
-            <button class="spk-bio-btn" data-spk="SC" aria-label="">
+            <button class="spk-bio-btn" data-spk="CW" aria-label="">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="12" cy="12" r="10"/>
                 <line x1="12" y1="8" x2="12" y2="12"/>
@@ -1720,7 +1726,6 @@
               View Bio
             </button>
           </div>
-
         </div>
       </div>
 
@@ -1728,7 +1733,7 @@
         <div class="spk-panel-label">Panel 2 — Women Governing AI: Standards, Governance &amp; Trust</div>
         <div class="spk-grid">
 
-          <div class="spk-card">
+          <!--div class="spk-card">
             <div class="spk-card-top">
               <div class="spk-avatar">BZ</div>
               <div class="spk-name">Her Excellency Botagoz Zhakselekova</div>
@@ -1812,11 +1817,11 @@
               </svg>
               View Bio
             </button>
-          </div>
+          </div--->
           
           <div class="spk-card">
             <div class="spk-avatar">+</div>
-            <div class="spk-name">More Speakers</div>
+            <div class="spk-name">Speakers</div>
             <div class="spk-role"><span class="tba-badge">To Be Announced</span></div>
           </div>
         </div>
@@ -1826,7 +1831,7 @@
         <div class="spk-panel-label">Panel 3 — Women Leading AI: Decision-Making Power &amp; Organizational Transformation</div>
         <div class="spk-grid">
 
-          <div class="spk-card">
+          <!--div class="spk-card">
             <div class="spk-card-top">
               <div class="spk-avatar">
                 <img src="imgs/NI.png" alt="" onerror="this.style.display='none'">
@@ -1892,11 +1897,11 @@
               </svg>
               View Bio
             </button>
-          </div>
+          </div-->
           
           <div class="spk-card">
             <div class="spk-avatar">+</div>
-            <div class="spk-name">More Speakers</div>
+            <div class="spk-name">Speakers</div>
             <div class="spk-role"><span class="tba-badge">To Be Announced</span></div>
           </div>
         </div>
@@ -1944,7 +1949,7 @@
         <div class="partner-logo-placeholder">
           <img src="imgs/GIZ.png" alt="" onerror="this.style.display='none'">
         </div>
-        <div class="partner-name">A regional initiative implemented by GIZ, WoMENA 
+        <div class="partner-name">A regional initiative implemented by GIZ and funded by the german Ministry of Economic Cooperation and Development, WoMENA 
           promotes gender-responsive and inclusive politics and economies across the Middle East and North Africa. The project strengthens 
           women's political participation and economic empowerment by supporting civil society, institutions, and change agents working toward 
           gender equality.</div>
@@ -2120,11 +2125,20 @@
   
   /* ── BIO MODAL ── */
   const BIOS = {
+    JH: {
+      name: 'Prof. Jesko Hentschel',
+      initials: 'JH',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Affiliate Professor at UM6P; Former World Bank\'s Country Director for the Maghreb and Malta region',
+      bio: [
+        ''
+        ]
+    },
     AH: {
       name: 'Prof. Aawatif Hayar',
       initials: 'AH',
       panel: 'Panel 1 — Women Grounding AI',
-      role: 'Former Minister of Solidarity, Social Integration and Family',
+      role: 'Expert in Frugal Social Smart Cities and Communities; Former Minister of Solidarity, Social Integration, and Family',
       bio: [
         'Aawatif Hayar is the Minister of Solidarity, Social Integration, and Family of Morocco. She was President of Hassan II University Casablanca 2019-2021. Since 2016, she has served as the Scientific Advisor of Smart City Expo Casablanca and General Co-Chair of IEEE international Smart Cities Conference. In 2011, she served as a professor at the UH2C. She is also a member of the Casablanca “Avant-garde” City think tank. She was also selected by the African Innovation Foundation as one of the top ten innovative African women in 2015. She was the first Moroccan to receive the degree of “Agrégation” in Electrical Engineering with honors from ENS Cachan in 1992. She received a "Diplôme d\'Etudes Approfondies" in signal processing image and communications and a degree in Engineering in Telecommunications Systems and Networks from ENSEEIHT de Toulouse in 1997. She earned her PhD with honors from Institut National Polytechnique in Toulouse in 2001.'
         ]
@@ -2142,7 +2156,7 @@
       name: 'Ms. Marielle Sander',
       initials: 'MS',
       panel: 'Panel 1 — Women Grounding AI',
-      role: 'Country Representative for the United Nations Population Fund (UNFPA) in Morocco',
+      role: 'Representative, United Nations Population Fund - UNFPA',
       bio: [
         'Marielle Sander, a Swedish national, is the Country Representative for the United Nations Population Fund (UNFPA) in Morocco. Marielle is a development practitioner with more than two decades of experience in international development. An advocate for human rights, especially the rights of women and girls, her career includes fighting human trafficking and labor exploitation in Eastern Europe as Chief of Mission for the International Organization for Migration and in South-East Asia with The Asia Foundation. As Deputy Representative for UNICEF, she led the work on children\'s rights and rights of children living with disabilities in Russia, and since joining UNFPA in 2015, she works with Governments to strengthen and leverage demographic data to ensure reproductive health and rights of women, girls, and adolescents. In Morocco, UNFPA works on youth empowerment, women and girls\' wellbeing, reproductive health, and population dynamics. Currently, UNFPA is also partnering on AI-based research in Morocco for women\'s health. A creative influence, Marielle\'s work on strategic and innovative communications focus has been recognized by UNFPA (People Culture Award 2022) and through international award-winning documentaries linking cultural expression, socioeconomic development, and indigenous identity. Marielle has served with UNPFA in Haiti, Eritrea, South Africa, Papua New Guinea, and, since 2023, in Morocco.'
         ]
@@ -2151,9 +2165,18 @@
       name: 'Dr. Cornelia C. Walther',
       initials: 'CW',
       panel: 'Panel 1 — Women Grounding AI',
-      role: 'Senior Fellow Wharton School. University of Pennsylvania',
+      role: 'Senior Fellow, University of Pennsylvania',
       bio: [
         'Dr. Cornelia C. Walther is a humanitarian leader with 20+ years at the UN, driving social change. Now, as a senior fellow at the Wharton School and Sunway University, she pioneers research on ProSocial AI and hybrid Intelligence via the global POZE alliance to build "Agency amid AI for All." She is the author of six books and a contributor on Forbes and Psychology Today.  Her new book, Artificial Intelligence for Inspired Action (AI4IA), comes out in December.'
+        ]
+    },
+    MN: {
+      name: 'Ms. Myriem Ouchen Noussairi',
+      initials: 'MN',
+      panel: 'Panel 1 — Women Grounding AI',
+      role: 'Head of Office - UN Women Morocco Country Office',
+      bio: [
+        'Myriem Ouchen Noussairi is the Head of Office of the Morocco Office of the United Nations Entity for Gender Equality and the Empowerment of Women (UN Women). With over 20 years of experience in the United Nations system, she brings extensive expertise in development program management and analysis. Ms. Noussairi joined UN Women in March 2020 as a Programme Specialist. Prior to that, she served as a Monitoring and Evaluation Analyst at the United Nations Development System\'s Resident Coordinator Office (RCO) in Morocco from 2013 to 2020. From 2012 to 2014, she was responsible for the Biodiversity and Sustainable Development portfolio within the United Nations Development Programme (UNDP), working closely with the Global Environment Facility (GEF). Before joining the United Nations system, Ms. Noussairi worked in the private sector as a consultant, supporting companies in improving their compliance and environmental performance with a focus on environmental certification (ISO 14001). She holds a Master\'s degree in Environmental Science and Policy with a specialization in Risk Management from Clark University (Worcester, Massachusetts).'
         ]
     },
     SC: {
@@ -2166,21 +2189,12 @@
         ]
     },
     AF: {
-      name: 'Ms. Annette Funk',
+      name: 'Prof. Abdessamad Fatmi',
       initials: 'AF',
       panel: 'Panel 1 — Women Grounding AI',
-      role: 'Head of Project WoMENA, GIZ',
+      role: 'Founder and CEO, Erudite Counseling',
       bio: [
-        ''
-        ]
-    },
-    MN: {
-      name: 'Ms. Myriem Noussairi',
-      initials: 'MN',
-      panel: 'Panel 1 — Women Grounding AI',
-      role: 'UN Women Representative in Morocco',
-      bio: [
-        ''
+        'Dr. Abdessamad Fatmi holds a PhD from the University of Liverpool, UK. He is a seasoned education and AI expert with an accumulated experience of 30 years in higher education executive offices, project management, and research in Morocco, Spain, the UAE, and the UK. Dr. Fatmi served as Professor and Dean in two prestigious Higher Education institutions in Morocco (The International University of Rabat and Al Akhawayn University in Ifrane). He also served as senior advisor to two education ministers and was in charge of strategy, research, and international cooperation. Dr. Fatmi was also closely involved in the design process of the 2015- 2030 strategic vision of the Moroccan Ministry of Education. Dr. Fatmi also held positions in other international institutions, such as the University of Tarragona, the University of Liverpool, and other prestigious institutions. He also advised many international institutions, such as the UM6P and the Arab Water Academy. He most recently led the implementation of the Higher Education Partnership-Morocco, funded by the USAID and implemented by Arizona State University. He recently authored a book titled "The Dawn of Artificial General Intelligence: Genesis and Implications for the Arab World".'
         ]
     },
     MG: {
